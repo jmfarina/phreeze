@@ -49,7 +49,9 @@ GlobalConfig::$ROUTE_MAP = array(
 	// default controller when no route specified
 	'GET:' => array('route' => 'Default.Home'),
 	'POST:generate' => array('route' => 'Generator.Generate'),
-	'POST:analyze' => array('route' => 'Analyzer.Analyze')
+	'POST:analyze' => array('route' => 'Analyzer.Analyze'),
+	'POST:load' => array('route' => 'Analyzer.LoadConfig'),
+	'POST:saveConfig' => array('route' => 'Generator.Export')
 );
 
 ?>

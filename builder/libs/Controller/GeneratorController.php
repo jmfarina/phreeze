@@ -33,8 +33,64 @@ class GeneratorController extends BaseController
 	{
 		parent::Init();
 	}
+        
+        public function Export() {
+            $params = RequestUtil::Get('parameters');
+            $debug = isset($_REQUEST["debug"]) && $_REQUEST["debug"] == "1";
+            
+            $dbHost = RequestUtil::Get('host');
+            $dbPort = RequestUtil::Get('port');
+            $dbUsername = RequestUtil::Get('username');
+            $dbPassword = RequestUtil::Get('password');
+            $dbName = RequestUtil::Get('schema');
+            $dbType = RequestUtil::Get('type','MySQL');
+            
+            $appname = RequestUtil::Get("appname");
+            $appRoot = RequestUtil::Get("appRoot");
+            $includePath = RequestUtil::Get("includePath");
+            $includePhar = RequestUtil::Get("includePhar");
+            $enableLongPolling = RequestUtil::Get("enableLongPolling");
+            $packageName = $_REQUEST["package"];
 
-	/**
+            $tableNames = $_REQUEST["table_name"];
+            
+            $data = Array();
+            
+            $data["debug"] = $debug;
+            $data["params"] = $params;
+            
+            $data["dbConfig"] = Array();
+            $data["dbConfig"]["host"] = $dbHost;
+            $data["dbConfig"]["port"] = $dbPort;
+            $data["dbConfig"]["user"] = $dbUsername;
+            $data["dbConfig"]["pass"] = $dbPassword;
+            $data["dbConfig"]["schema"] = $dbName;
+            $data["dbConfig"]["type"] = $dbType;
+            
+            $data["appConfig"] = Array();
+            $data["appConfig"]["appname"] = $appname;
+            $data["appConfig"]["approot"] = $appRoot;
+            $data["appConfig"]["includePath"] = $includePath;
+            $data["appConfig"]["includePhar"] = $includePhar;
+            $data["appConfig"]["enableLongPolling"] = $enableLongPolling;
+            $data["appConfig"]["packageName"] = $packageName;
+            
+            $data["tables"] = Array();
+            foreach ($tableNames as $tableName) {
+                $data["tables"][$tableName] = Array();
+                $data["tables"][$tableName]["singular"] = $_REQUEST[$tableName . "_singular"];
+                $data["tables"][$tableName]["plural"] = $_REQUEST[$tableName . "_plural"];
+                $data["tables"][$tableName]["prefix"] = $_REQUEST[$tableName . "_prefix"];
+            }
+            
+            header("Content-type: application/force-download");
+            header("Content-disposition: attachment; filename=".str_replace(" ","_",strtolower(str_replace("/","", $appRoot))).".json");
+            header("Content-Transfer-Encoding: Binary");
+            header('Content-Type: text/plain');
+            print json_encode($data, JSON_PRETTY_PRINT);
+        }
+
+        /**
 	 * Generate the application based on the selected tables and options
 	 */
 	public function Generate()

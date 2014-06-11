@@ -1,0 +1,5 @@
+$(function() {
+    $('#loadConfig').click(function() {
+        
+    });
+});

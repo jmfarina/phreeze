@@ -25,7 +25,7 @@ GlobalConfig::$CONNECTION_SETTING->Username = "";
 GlobalConfig::$CONNECTION_SETTING->Password = "";
 
 /** the root url of the application with trailing slash, for example http://localhost/adserv/ */
-GlobalConfig::$ROOT_URL = RequestUtil::GetServerRootUrl() . 'phreeze/builder/';
+GlobalConfig::$ROOT_URL = RequestUtil::GetServerRootUrl() . 'builder/';
 
 /** timezone */
 // date_default_timezone_set("UTC");

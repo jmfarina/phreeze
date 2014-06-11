@@ -24,6 +24,7 @@ if (!GlobalConfig::$APP_ROOT) GlobalConfig::$APP_ROOT = realpath("./");
  * INCLUDE PATH
  * Adjust the include path as necessary so PHP can locate required libraries
  */
+//TODO jmfarina: this path should be configurable
 set_include_path(
 		GlobalConfig::$APP_ROOT . '/libs/' . PATH_SEPARATOR .
 {if ($includePhar == '1')}

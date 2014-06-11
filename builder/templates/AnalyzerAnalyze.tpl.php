@@ -88,13 +88,13 @@ of the view, update operations may not work.  Views are de-selected by default.<
 			<?php $this->eprint($table->Name); ?></td>
 			
 			<?php if (is_reserved_table_name($table->Name)) { ?>
-				<td><input class="objname objname-singular" type="text" id="<?php $this->eprint($table->Name); ?>_singular" name="<?php $this->eprint($table->Name); ?>_singular" value="<?php $this->eprint($this->studlycaps($table->Name)); ?>Model" /></td>
-				<td><input class="objname objname-plural" type="text" id="<?php $this->eprint($table->Name); ?>_plural" name="<?php $this->eprint($table->Name); ?>_plural" value="<?php $this->eprint($this->studlycaps($table->Name)); ?>Models" /></td>
+                        <td><input class="objname objname-singular" type="text" id="<?php $this->eprint($table->Name); ?>_singular" name="<?php $this->eprint($table->Name); ?>_singular" value="<?php isset($this->tables) && isset($this->tables[$table->Name])? $this->eprint($this->tables[$table->Name]["singular"]) : $this->eprint($this->studlycaps($table->Name)); ?>Model" /></td>
+				<td><input class="objname objname-plural" type="text" id="<?php $this->eprint($table->Name); ?>_plural" name="<?php $this->eprint($table->Name); ?>_plural" value="<?php isset($this->tables) && isset($this->tables[$table->Name])? $this->eprint($this->tables[$table->Name]["plural"]) : $this->eprint($this->studlycaps($table->Name)); ?>Models" /></td>
 			<?php } else { ?>
-				<td><input class="objname objname-singular" type="text" id="<?php $this->eprint($table->Name); ?>_singular" name="<?php $this->eprint($table->Name); ?>_singular" value="<?php $this->eprint($this->studlycaps($table->Name)); ?>" /></td>
-				<td><input class="objname objname-plural" type="text" id="<?php $this->eprint($table->Name); ?>_plural" name="<?php $this->eprint($table->Name); ?>_plural" value="<?php $this->eprint($this->studlycaps($this->plural($table->Name))); ?>" /></td>
+				<td><input class="objname objname-singular" type="text" id="<?php $this->eprint($table->Name); ?>_singular" name="<?php $this->eprint($table->Name); ?>_singular" value="<?php isset($this->tables) && isset($this->tables[$table->Name])? $this->eprint($this->tables[$table->Name]["singular"]) : $this->eprint($this->studlycaps($table->Name)); ?>" /></td>
+				<td><input class="objname objname-plural" type="text" id="<?php $this->eprint($table->Name); ?>_plural" name="<?php $this->eprint($table->Name); ?>_plural" value="<?php isset($this->tables) && isset($this->tables[$table->Name])? $this->eprint($this->tables[$table->Name]["plural"]) : $this->eprint($this->studlycaps($this->plural($table->Name))); ?>" /></td>
 			<?php } ?>
-			<td><input type="text" class="colprefix span2" id="<?php $this->eprint($table->Name); ?>_prefix" name="<?php $this->eprint($table->Name); ?>_prefix" value="<?php $this->eprint($table->ColumnPrefix); ?>" size="15" /></td>
+			<td><input type="text" class="colprefix span2" id="<?php $this->eprint($table->Name); ?>_prefix" name="<?php $this->eprint($table->Name); ?>_prefix" value="<?php isset($this->tables) && isset($this->tables[$table->Name])? $this->eprint($this->tables[$table->Name]["prefix"]) : $this->eprint($table->ColumnPrefix); ?>" size="15" /></td>
 		</tr>
 	<?php } ?>
 	</tbody>
@@ -127,7 +127,7 @@ of the view, update operations may not work.  Views are de-selected by default.<
 					data-title="Application Name" 
 					data-content="The name of the application will appear in the top nav/header as well as the footer of the app.  You can change this later in the templates folder."></i></label>
 			<div class="controls inline-inputs">
-				<input type="text" name="appname" id="appname" value="<?php $this->eprint(strtoupper($this->appname)); ?>" />
+                            <input type="text" name="appname" id="appname" value="<?php $this->eprint($this->appname); ?>" />
 				<span class="help-inline"></span>
 			</div>
 		</div>
@@ -138,7 +138,7 @@ of the view, update operations may not work.  Views are de-selected by default.<
 					data-content="Your Phreeze application must know it's root location in order to support clean URLs.  You will need to ensure this is the correct URL for your app.  When deploying your app to another server, this value will need to be adjusted.<br/><br/>The GlobalConfig::$ROOT_URL setting is found in <code>_machine_config.php</code>"></i></label>
 			<div class="controls inline-inputs">
 				<span>http://servername/</span>
-				<input type="text" class="span2" name="appRoot" id="appRoot" value="<?php $this->eprint(strtolower($this->appname)); ?>/" />
+				<input type="text" class="span2" name="appRoot" id="appRoot" value="<?php $this->eprint($this->appRoot); ?>/" />
 				<span class="help-inline"></span>
 			</div>
 		</div>
@@ -148,7 +148,7 @@ of the view, update operations may not work.  Views are de-selected by default.<
 					data-title="Path to Phreeze Libs" 
 					data-content="Unless your app is self-contained (see next option) then it must be able to locate the Phreeze framework class files in <code>/phreeze/libs/</code>.  The app will check the PHP include path, however you can specify an additional relative file path here.<br/><br/>This setting can be adjusted in <code>_app_config.php</code>"></i></label>
 			<div class="controls inline-inputs">
-				<input type="text" name="includePath" id="includePath" value="../phreeze/libs" />
+				<input type="text" name="includePath" id="includePath" value="<?php $this->eprint($this->phreezePath); ?>" />
 				<span class="help-inline"></span>
 			</div>
 		</div>
@@ -192,6 +192,7 @@ of the view, update operations may not work.  Views are de-selected by default.<
 		<input type="hidden" name="password" id="password" value="<?php $this->eprint($this->password) ?>" />
 
 		<button class="btn btn-inverse"><i class="icon-play"></i> Generate Application</button>
+                <button id="saveConfig" class="btn btn-inverse" type="button">Save Config</button>
 	</p>
 </form>
 

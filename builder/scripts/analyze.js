@@ -56,6 +56,12 @@
 		});
 		
 	});
+        
+        $("#saveConfig").click(function () {
+            var originalAction = $('#generateForm').attr('action');
+            $('#generateForm').attr('action', "saveConfig").submit();
+            $('#generateForm').attr('action', originalAction);
+        });
 	
 })(jQuery);
 

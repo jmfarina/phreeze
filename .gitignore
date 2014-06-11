@@ -4,3 +4,5 @@
 /apidocs/html
 /phar/*.phar
 .DS_Store
+/nbproject/private/
+/nbproject/

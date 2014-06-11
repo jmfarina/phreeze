@@ -60,5 +60,13 @@
 		<input type="submit" class="btn btn-inverse" value="Analyze Database &raquo;" />
 	</p>
 </form>
+<form action="load" method="post" enctype="multipart/form-data">
+    <label for="file">Or load a config file:</label>
+    <input type="file" name="configFile" id="configFile">
+    <input id="loadConfig" type="submit" class="btn btn-inverse" value="Load config" />
+</form>
+
+<script type="text/javascript" src="scripts/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="scripts/home.js"></script>
 
 <?php include_once '_footer.tpl.php'; ?>
