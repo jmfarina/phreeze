@@ -26,7 +26,7 @@ GlobalConfig::$CONNECTION_SETTING->Multibyte = true;
 // GlobalConfig::$CONNECTION_SETTING->BootstrapSQL = "SET SQL_BIG_SELECTS=1";
 
 /** the root url of the application with trailing slash, for example http://localhost/{$appname|lower}/ */
-GlobalConfig::$ROOT_URL = RequestUtil::GetServerRootUrl() . '{$appRoot}';
+GlobalConfig::$ROOT_URL = RequestUtil::GetServerRootUrl() . GlobalConfig::$APP_CONTEXT . '/';
 
 /** timezone */
 // date_default_timezone_set("UTC");

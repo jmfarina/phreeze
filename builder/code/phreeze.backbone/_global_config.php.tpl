@@ -48,6 +48,9 @@ class GlobalConfig
 
 	/** @var root url of the application */
 	public static $ROOT_URL;
+        
+        /** @var app context is the portion of the app's url that points to it's root */
+	public static $APP_CONTEXT;
 
 	/** @var ConnectionSetting object containign settings for the DB connection **/
 	public static $CONNECTION_SETTING;
