@@ -46,6 +46,9 @@ class GlobalConfig
 	/** @var app root is the root directory of the application */
 	public static $APP_ROOT;
 
+        /** @var app context is the portion of the app's url that points to it's root */
+	public static $APP_CONTEXT;
+        
 	/** @var root url of the application */
 	public static $ROOT_URL;
 

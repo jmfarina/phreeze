@@ -21,6 +21,15 @@
 if (!GlobalConfig::$APP_ROOT) GlobalConfig::$APP_ROOT = realpath("./");
 
 /**
+ * APPLICATION's CONTEXT
+ * It's the part of the URL after the domain that points to the application's root.
+ * Will vary depending on how the app has been deployed.
+ * E.g: http://localhost/myApp -> myApp being the root context; http://myapp.com ->
+ * in this case, the root context is ''
+ */
+if (!GlobalConfig::$APP_CONTEXT) GlobalConfig::$APP_CONTEXT = getAppContext();
+
+/**
  * INCLUDE PATH
  * Adjust the include path as necessary so PHP can locate required libraries
  */
@@ -53,5 +62,17 @@ GlobalConfig::$ROUTE_MAP = array(
 	'POST:load' => array('route' => 'Analyzer.LoadConfig'),
 	'POST:saveConfig' => array('route' => 'Generator.Export')
 );
+
+function getAppContext() {
+        //http://blog.lavoie.sl/2013/02/php-document-root-path-and-url-detection.html
+        //http://www.php.net//manual/en/reserved.variables.server.php
+        $base_dir = __DIR__; // Absolute path to your installation, ex: /var/www/mywebsite
+        $doc_root = preg_replace("!{$_SERVER['SCRIPT_NAME']}$!", '', $_SERVER['SCRIPT_FILENAME']); # ex: /var/www
+        // using substr instead of preg_replace because in Windows the usage of slashes/backslashes is not consistent
+        $base_url = substr($base_dir, strlen($doc_root)); # ex: /var/www
+        // replacing any remaining backslashes (Windows)
+        return $base_url = str_replace("\\", '/', $base_url); # ex: '' or '/mywebsite'
+        //$base_url = preg_replace('/^//', '', $base_url);
+}
 
 ?>
